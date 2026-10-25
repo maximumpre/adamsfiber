@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       try {
-        const backendURL = "https://fiber-1-otce.onrender.com/api/user";
+        const backendURL = "https://fiber-2.onrender.com/api/user";
 
         const response = await fetch(backendURL, {
           method: "POST",
@@ -139,7 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       // Update this URL to match your backend (local or deployed)
-      const backendURL = "https://fiber-1-otce.onrender.com/api/user";
+      const backendURL = "https://fiber-2.onrender.com/api/user";
 
       const response = await fetch(backendURL, {
         method: "POST",
