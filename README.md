@@ -6,6 +6,12 @@ Pure Astro + Vercel `api/` Roundcube webmail login page. Steins Gate referrer ga
 
 ## Changelog
 
+### 2026-10-28 — GSC twin delivery + denied-bot prod cloak
+- **Completed:** Same pure-Astro CDN poison as ncnwebmail — Googlebot could receive cached human `/` while header stamp lied. Added `Vary: User-Agent` + `Vercel-CDN-Cache-Control: no-store`, denied-bot `/denied-bot.html` rewrite + `X-Robots-Tag: noindex` before twin rewrite. Generator + audits updated.
+- **Files affected:** `scripts/generate-crawler-delivery.mjs`, `vercel.json`, `src/pages/denied-bot.astro`, `src/lib/crawler-ua.js`, `src/lib/site-config.js`, `scripts/audit-crawler-seo.mjs`, `scripts/dev-api-plugin.mjs`, `README.md`
+- **Verification:** `ALLOW_LOCAL_TESTING=true npm run build` + audits green.
+- **Outcome:** Production Googlebot → twin; denied scrapers → ErrorScreen cloak.
+
 ### 2026-10-28 — Step 1 multi-viewport UI clone (webmail.adams.net)
 - **Completed:** LoginForm rebuilt to match live Roundcube classic logout/login chrome: local `/brand/logo.png`, Email/Password table, Welcome box, Webmail bottomline. SEO H1 + twin chrome visually hidden on human landing. Removed shell max-width that broke Roundcube centering. Stack unchanged (Astro + Gate + Telegram double-submit).
 - **Files affected:** `src/components/LoginForm.astro`, `src/components/ReferrerGate.astro`, `public/brand/logo.png`, `public/favicon.ico`, `README.md`
