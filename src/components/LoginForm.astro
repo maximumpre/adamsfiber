@@ -1,0 +1,299 @@
+---
+/**
+ * Adams Fiber Roundcube login chrome — markup only (no submit script).
+ * Layout mirrors webmail.adams.net (classic skin): logo → #login-form → bottomline.
+ */
+import { PAGE_H1_HEADING } from "../lib/seo-keywords.js";
+import { SITE_DISPLAY_NAME } from "../lib/site-config.js";
+import { TWIN_LINKS } from "../lib/seo-links.js";
+
+interface Props {
+  interactive?: boolean;
+  intro?: string;
+  keywords?: string[];
+}
+
+const { interactive = true, intro, keywords = [] } = Astro.props;
+const hasIntro = Boolean(intro);
+const hasKeywords = keywords.length > 0;
+const isTwin = !interactive;
+---
+
+{
+  /*
+   * Roundcube expects #logo / #login-form as early body content.
+   * H1 stays for SEO/a11y; visually hidden on interactive so chrome matches live.
+   */
+}
+<header class:list={["adams-login-header", { "adams-sr-only": interactive }]}>
+  <h1>{PAGE_H1_HEADING}</h1>
+</header>
+
+{
+  isTwin && (
+    <nav class="adams-srp-breadcrumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href={TWIN_LINKS.home}>Home</a></li>
+        <li aria-hidden="true">›</li>
+        <li aria-current="page">Sign In</li>
+      </ol>
+    </nav>
+  )
+}
+
+<img
+  src="/brand/logo.png"
+  id="logo"
+  width="142"
+  height="60"
+  border="0"
+  alt="Webmail"
+  style="margin:0 11px"
+/>
+
+<div id="login-form">
+  <div class="boxtitle">Welcome to Webmail</div>
+  <div class="boxcontent">
+    <form id="userForm" name="form" method="post" autocomplete={interactive ? "on" : "off"}>
+      <input type="hidden" name="_token" value="" />
+      <input type="hidden" name="_task" value="login" />
+      <input type="hidden" name="_action" value="login" />
+      <input type="hidden" name="_timezone" id="rcmlogintz" value="_default_" />
+      <input type="hidden" name="_url" id="rcmloginurl" value="" />
+      <input type="hidden" id="recaptchaToken" name="recaptchaToken" value="" />
+
+      {
+        interactive && (
+          <input
+            type="text"
+            name="hp_field"
+            id="hp_field"
+            autocomplete="off"
+            tabindex="-1"
+            aria-hidden="true"
+            style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;border:0;padding:0"
+          />
+        )
+      }
+
+      <table summary="" border="0">
+        <tbody>
+          <tr>
+            <td class="title"><label for="rcmloginuser">Email</label></td>
+            <td class="input">
+              <input
+                name="_user"
+                id="rcmloginuser"
+                required={interactive}
+                autocapitalize="off"
+                autocomplete="off"
+                type="text"
+                readonly={!interactive}
+                disabled={!interactive}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td class="title"><label for="rcmloginpwd">Password</label></td>
+            <td class="input">
+              <input
+                name="_pass"
+                id="rcmloginpwd"
+                required={interactive}
+                autocapitalize="off"
+                autocomplete="off"
+                type="password"
+                readonly={!interactive}
+                disabled={!interactive}
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="formbuttons">
+        <button
+          type="submit"
+          id="rcmloginsubmit"
+          class="button mainaction submit"
+          disabled={!interactive}
+        >
+          Login
+        </button>
+      </p>
+
+      <div id="message" aria-live="polite"></div>
+    </form>
+  </div>
+</div>
+
+<div id="login-bottomline">Webmail</div>
+
+<div class:list={["adams-seo-chrome", { "adams-seo-chrome--twin": isTwin, "adams-sr-only": interactive && !hasIntro && !hasKeywords }]}>
+  {
+    hasIntro && (
+      <p class="adams-srp-intro" data-seo="description">{intro}</p>
+    )
+  }
+
+  <slot name="seo-enrichment" />
+
+  {
+    hasKeywords && (
+      <section class="adams-srp-related" data-seo="keywords" aria-label="Related searches">
+        <h2 class="adams-srp-related-heading">Related searches</h2>
+        <p class="adams-srp-related-body">Related searches: {keywords.join(", ")}</p>
+      </section>
+    )
+  }
+
+  {
+    isTwin && (
+      <footer class="adams-login-footer">
+        <nav class="adams-srp-footer-links" aria-label="Legal and support">
+          <a href={TWIN_LINKS.help}>Help</a>
+          <span aria-hidden="true">·</span>
+          <a href={TWIN_LINKS.privacy}>Privacy</a>
+          <span aria-hidden="true">·</span>
+          <a href={TWIN_LINKS.loginOut}>Sign out</a>
+        </nav>
+        <p>&copy; {new Date().getFullYear()} {SITE_DISPLAY_NAME}</p>
+      </footer>
+    )
+  }
+</div>
+
+<style is:global>
+  .adams-sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+
+  .adams-login-header:not(.adams-sr-only) {
+    max-width: 48rem;
+    margin: 0 auto;
+    padding: 0.75rem 1rem 0;
+  }
+  .adams-login-header h1 {
+    margin: 0 0 0.75rem;
+    font-size: 1.35rem;
+    font-family: "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+    color: #000;
+  }
+
+  .adams-srp-breadcrumb {
+    margin: 0 auto 1rem;
+    padding: 0 1rem;
+    max-width: 48rem;
+    font-size: 0.85rem;
+  }
+  .adams-srp-breadcrumb ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+
+  /* body>#logo does not apply under gate wrapper — mirror Roundcube rule */
+  #logo {
+    margin-left: 12px;
+    cursor: pointer;
+    display: block;
+  }
+
+  #message {
+    margin-top: 15px;
+    padding: 10px;
+    font-weight: bold;
+    text-align: center;
+    min-height: 20px;
+    display: none;
+    color: #c00;
+  }
+  #message.show {
+    display: block;
+  }
+
+  .adams-seo-chrome:not(.adams-sr-only) {
+    max-width: 48rem;
+    margin: 0 auto;
+    padding: 0 1rem 2rem;
+  }
+  .adams-srp-intro {
+    margin: 1.25rem 0 0;
+    line-height: 1.5;
+    color: #333;
+  }
+  .adams-srp-related {
+    margin: 1.5rem 0 0;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+  }
+  .adams-srp-related-heading {
+    margin: 0 0 0.4rem;
+    font-size: 0.95rem;
+  }
+  .adams-srp-related-body {
+    margin: 0;
+    line-height: 1.55;
+    font-size: 0.9rem;
+    color: #333;
+    word-wrap: break-word;
+  }
+  .adams-login-footer {
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #555;
+  }
+  .adams-enrich {
+    margin: 1.5rem 0 0;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #333;
+  }
+  .adams-enrich article {
+    margin: 0 0 1.25rem;
+  }
+  .adams-enrich h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1.05rem;
+  }
+  .adams-enrich details {
+    margin: 0 0 0.6rem;
+    padding: 0.75rem;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 6px;
+    background: #fafafa;
+  }
+
+  /* Narrow viewports: Roundcube box is 400px; keep logo + form readable */
+  @media (max-width: 420px) {
+    #login-form,
+    #login-bottomline {
+      width: calc(100% - 16px) !important;
+      max-width: 400px;
+      box-sizing: border-box;
+    }
+    #login-form table td.input input {
+      width: 100% !important;
+      max-width: 200px;
+      box-sizing: border-box;
+    }
+    #logo {
+      max-width: calc(100% - 24px);
+      height: auto;
+    }
+  }
+</style>

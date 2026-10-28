@@ -1,0 +1,60 @@
+{
+  "brand": "Adams Fiber",
+  "domain": "adams.net",
+  "harvestedAt": "2026-10-28T00:00:00.000Z",
+  "executionDurationMs": 0,
+  "siteVisibleKeywords": [
+    "adams fiber webmail login",
+    "adams fiber mail login",
+    "adams fiber email portal",
+    "roundcube login",
+    "roundcube adams fiber webmail",
+    "adams fiber webmail sign in",
+    "adams fiber email login",
+    "adams fiber webmail portal",
+    "adams fiber webmail username password",
+    "adams fiber forgot password webmail",
+    "adams fiber webmail login not working",
+    "adams fiber webmail login issues",
+    "adams fiber roundcube login",
+    "adams fiber illinois webmail",
+    "adams fiber webmail inbox",
+    "roundcube webmail login",
+    "adams fiber email sign in",
+    "adams fiber webmail help",
+    "adams fiber webmail password reset",
+    "adams fiber webmail browser login",
+    "roundcube web interface",
+    "adams fiber hosted email login",
+    "adams fiber email portal login",
+    "adams fiber webmail trouble logging in",
+    "adams fiber tech support email"
+  ],
+  "faqs": [
+    {
+      "question": "How do I sign in to Adams Fiber webmail?",
+      "answer": "Enter your full Adams email address and mailbox password on the Adams Fiber sign-in screen. Roundcube loads your inbox after successful authentication."
+    },
+    {
+      "question": "What username do I use for Adams Fiber webmail?",
+      "answer": "Your username is usually your full Adams email address on your hosted domain. Contact Adams Fiber support if you are unsure which address is active on your account."
+    },
+    {
+      "question": "How do I reset my Adams Fiber email password?",
+      "answer": "Call Adams Fiber 24/7 technical support at 877.502.3267 for password reset assistance. Support verifies your identity before restoring mailbox access."
+    },
+    {
+      "question": "Which browser works with Roundcube on Adams Fiber webmail?",
+      "answer": "Use a modern browser such as current Chrome, Firefox, Safari, or Edge. Roundcube is not supported on very old browsers including Internet Explorer 6."
+    },
+    {
+      "question": "Who do I call for Adams Fiber webmail support?",
+      "answer": "Technical support is available 24/7 at 877.502.3267. Customer service is available at 217.214.3423 during business hours."
+    }
+  ],
+  "domainServices": [
+    "Secure Roundcube authentication for Adams Fiber hosted email",
+    "Browser-based inbox, compose, folders, contacts, and calendar where enabled",
+    "Self-service guidance and 24/7 Tech Support contact paths for login and password help"
+  ]
+}
